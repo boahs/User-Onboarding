@@ -1,7 +1,14 @@
 import React from "react";
 
 function Form(props) {
-  const { values, submit, inputChange, disabled, errors } = props;
+  const {
+    values,
+    submit,
+    inputChange,
+    disabled,
+    errors,
+    checkboxChange,
+  } = props;
 
   const onSubmit = (evt) => {
     evt.preventDefault();
@@ -10,6 +17,10 @@ function Form(props) {
   const onInputChange = (evt) => {
     const { name, value } = evt.target;
     inputChange(name, value);
+  };
+  const onCheckboxChange = (evt) => {
+    const { name, checked } = evt.target;
+    checkboxChange(name, checked);
   };
 
   return (
@@ -52,6 +63,28 @@ function Form(props) {
               type="text"
             />
           </label>
+        </label>
+        <br />
+        <label>
+          Terms of service:
+          <br />
+          Yes
+          <input
+            type="checkbox"
+            name="yes"
+            checked={values.yes}
+            onChange={onCheckboxChange}
+          />
+        </label>
+        <br />
+        <label>
+          No
+          <input
+            type="checkbox"
+            name="no"
+            checked={values.no}
+            onChange={onCheckboxChange}
+          />
         </label>
       </div>
       <p></p>
