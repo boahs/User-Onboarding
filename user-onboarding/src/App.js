@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 import axios from "axios";
@@ -9,6 +9,10 @@ const initialFormErrors = {
   username: "",
   email: "",
   password: "",
+  checkbox: {
+    yes: false,
+    no: false,
+  },
 };
 const initialFormValues = {
   ///// TEXT INPUTS /////
@@ -91,11 +95,43 @@ function App() {
     });
   };
 
+  const checkboxChange = (name, isChecked) => {
+    setFormValues({
+      ...formValues,
+      checkbox: {
+        ...formValues.checkbox,
+        [name]: isChecked,
+      },
+    });
+  };
+
+  const submit = () => {
+    const newUser = {
+      username: formValues.username.trim(),
+      email: formValues.email.trim(),
+      password: formValues.password,
+    };
+    postNewUser(newUser);
+  };
+
+  useEffect(() => {
+    formSchema.isValid(formValues).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [formValues]);
+
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Form />
+        <Form
+          values={formValues}
+          inputChange={inputChange}
+          checkboxChange={checkboxChange}
+          submit={submit}
+          disabled={disabled}
+          errors={formErrors}
+        />
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
