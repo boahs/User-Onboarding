@@ -4,6 +4,7 @@ import "./App.css";
 import axios from "axios";
 import * as yup from "yup";
 import Form from "./components/Form";
+import User from "./components/User";
 
 const initialFormErrors = {
   username: "",
@@ -70,6 +71,7 @@ function App() {
       .finally(() => {
         setFormValues(initialFormValues);
       });
+    console.log(newUser);
   };
 
   const inputChange = (name, value) => {
@@ -123,7 +125,6 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
         <Form
           values={formValues}
           inputChange={inputChange}
@@ -132,17 +133,9 @@ function App() {
           disabled={disabled}
           errors={formErrors}
         />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {users.map((user) => {
+          return <User key={user.id} details={user} />;
+        })}
       </header>
     </div>
   );
