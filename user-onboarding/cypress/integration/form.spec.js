@@ -25,4 +25,9 @@ describe("User-Onboarding-App", () => {
       cy.get("form").submit();
     });
   });
+  describe("checking for form validation if inputs are left empty", () => {
+    it("fields should not be empty", () => {
+      cy.get('input[name="username"]').should("be.empty");
+    });
+  });
 });
