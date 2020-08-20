@@ -6,11 +6,13 @@ describe("User-Onboarding-App", () => {
     });
   });
 
-  describe("get the Name input and types a name into the field", () => {
+  describe("get the input fields and type a value into the field", () => {
     it('can type something in the "text" input', () => {
       cy.get('input[name="username"]')
         .type("Testing")
         .should("have.value", "Testing");
+      cy.get('input[name="password"]').type("hunter2");
+      cy.get('input[name="email"]').type("email@email.com");
     });
   });
 });
